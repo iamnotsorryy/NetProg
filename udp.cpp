@@ -15,7 +15,7 @@ int main()
 {
 
     
-    sockaddr_in * kera = new (sockaddr_in);
+    sockaddr_in * kera = new (sockaddr_in); //Приём соединения
     kera->sin_family = AF_INET; 
     kera->sin_port = 0;         
     kera->sin_addr.s_addr = 0;
@@ -38,21 +38,21 @@ int main()
         Exception("Error open socket",11);
     }
     
-    int rc = bind(mySocket,(const sockaddr *) kera, sizeof(sockaddr_in));
+    int rc = bind(mySocket,(const sockaddr *) kera, sizeof(sockaddr_in)); // привязка к своему адресу
     if (rc == -1) {
         close(mySocket);
         Exception("Error bind socket with local address",12);
     }
 
     
-    rc = connect(mySocket, (const sockaddr*) jpgf, sizeof(sockaddr_in));
+    rc = connect(mySocket, (const sockaddr*) jpgf, sizeof(sockaddr_in)); // установка соединения
     if (rc == -1) {
         close(mySocket);
         Exception("Error connect socket with remote server.", 13);
     }
 
     
-    rc = send(mySocket, buffer, msgLen, 0);
+    rc = send(mySocket, buffer, msgLen, 0); // обмен 
     if (rc == -1) {
         close(mySocket);
         Exception("Error send meskerage", 14);
